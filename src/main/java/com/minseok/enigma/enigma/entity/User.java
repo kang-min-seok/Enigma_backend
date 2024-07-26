@@ -6,6 +6,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 커뮤니티 사용자를 나타내는 클래스입니다.
@@ -44,15 +46,6 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    /**
-     * 사용자의 학교 수준을 나타내는 열거형입니다.<p>
-     * 초등 = ELEMENTARY<p>
-     * 중등 = MIDDLE<p>
-     * 고등 = HIGH
-     */
-    public enum SchoolLevel {
-        ELEMENTARY, MIDDLE, HIGH
-    }
 
     /**
      * 사용자의 학교 수준입니다.
@@ -82,6 +75,17 @@ public class User {
     private LocalDateTime updatedAt;
 
     /**
+     * 사용자의 친구 목록입니다.
+     */
+    @ManyToMany
+    @JoinTable(
+            name = "user_friends",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_id")
+    )
+    private Set<User> friends = new HashSet<>();
+
+    /**
      * 새로운 User 인스턴스를 생성합니다.
      *
      * @param userName 사용자의 이름(아이디)
@@ -97,5 +101,25 @@ public class User {
         this.email = email;
         this.schoolLevel = schoolLevel;
         this.grade = grade;
+        this.friends = new HashSet<>();
     }
+
+    /**
+     * 친구를 추가합니다.
+     *
+     * @param friend 추가할 친구
+     */
+    public void addFriend(User friend) {
+        friends.add(friend);
+    }
+
+    /**
+     * 친구를 제거합니다.
+     *
+     * @param friend 제거할 친구
+     */
+    public void removeFriend(User friend) {
+        friends.remove(friend);
+    }
+
 }

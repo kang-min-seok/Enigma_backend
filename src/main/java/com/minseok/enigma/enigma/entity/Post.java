@@ -65,12 +65,6 @@ public class Post {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    /**
-     * 게시글의 상태를 나타내는 열거형입니다.
-     */
-    public enum Status {
-        ACTIVE, DELETED
-    }
 
     /**
      * 게시글의 현재 상태입니다.

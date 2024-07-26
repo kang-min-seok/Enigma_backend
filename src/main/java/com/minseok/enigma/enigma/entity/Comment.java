@@ -60,12 +60,6 @@ public class Comment {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    /**
-     * 댓글의 상태를 나타내는 열거형입니다.
-     */
-    public enum Status {
-        ACTIVE, DELETED
-    }
 
     /**
      * 댓글의 현재 상태입니다.
