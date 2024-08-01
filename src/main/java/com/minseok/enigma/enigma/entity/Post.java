@@ -81,19 +81,28 @@ public class Post {
     private PostCategory postCategory;
 
     /**
+     * 게시글의 학교 수준입니다.
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private SchoolLevel schoolLevel;
+
+    /**
      * 새로운 게시글 인스턴스를 생성합니다.
      *
      * @param title 게시글의 제목
      * @param content 게시글의 내용
      * @param author 게시글 작성자
      * @param postCategory 게시글이 속한 카테고리
+     * @param schoolLevel 게시글의 학교 수준
      */
     @Builder
-    public Post(String title, String content, User author, PostCategory postCategory) {
+    public Post(String title, String content, User author, PostCategory postCategory, SchoolLevel schoolLevel) {
         this.title = title;
         this.content = content;
         this.author = author;
         this.postCategory = postCategory;
+        this.schoolLevel = schoolLevel;
         this.viewCount = 0;
         this.status = Status.ACTIVE;
     }

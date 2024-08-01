@@ -1,5 +1,6 @@
 package com.minseok.enigma.enigma.dto.request.comment;
 
+import com.minseok.enigma.enigma.entity.SchoolLevel;
 import lombok.Data;
 
 /**
@@ -10,4 +11,5 @@ public class CommentCreateRequest {
     private Long postId;
     private Long userId;
     private String content;
+    private SchoolLevel schoolLevel;
 }

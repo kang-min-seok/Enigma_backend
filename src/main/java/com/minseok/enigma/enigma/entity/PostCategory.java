@@ -49,6 +49,13 @@ public class PostCategory {
     private boolean isActive = true;
 
     /**
+     * 카테고리의 학교 수준입니다.
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private SchoolLevel schoolLevel;
+
+    /**
      * 이 카테고리에 속한 게시글의 리스트입니다.
      */
     @OneToMany(mappedBy = "postCategory", cascade = CascadeType.ALL, orphanRemoval = true)

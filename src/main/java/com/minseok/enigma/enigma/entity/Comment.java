@@ -69,6 +69,13 @@ public class Comment {
     private Status status;
 
     /**
+     * 댓글의 학교 수준입니다.
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private SchoolLevel schoolLevel;
+
+    /**
      * 새로운 Comment 인스턴스를 생성합니다.
      *
      * @param user 댓글 작성자
@@ -76,10 +83,11 @@ public class Comment {
      * @param content 댓글 내용
      */
     @Builder
-    public Comment(User user, Post post, String content) {
+    public Comment(User user, Post post, String content, SchoolLevel schoolLevel) {
         this.user = user;
         this.post = post;
         this.content = content;
+        this.schoolLevel = schoolLevel;
         this.status = Status.ACTIVE;
     }
 

@@ -2,6 +2,7 @@ package com.minseok.enigma.enigma.repository;
 
 import com.minseok.enigma.enigma.entity.Post;
 import com.minseok.enigma.enigma.entity.Status;
+import com.minseok.enigma.enigma.entity.SchoolLevel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -70,4 +71,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
      * @return 카테고리에 해당하는 게시글 목록 페이지
      */
     Page<Post> findByPostCategoryId(Long categoryId, Status status, Pageable pageable);
+
+    List<Post> findBySchoolLevel(SchoolLevel schoolLevel);
 }

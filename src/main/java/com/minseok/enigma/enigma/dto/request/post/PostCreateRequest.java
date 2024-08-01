@@ -1,5 +1,6 @@
 package com.minseok.enigma.enigma.dto.request.post;
 
+import com.minseok.enigma.enigma.entity.SchoolLevel;
 import lombok.Data;
 
 /**
@@ -11,4 +12,5 @@ public class PostCreateRequest {
     private String content;
     private Long authorId;
     private Long categoryId;
+    private SchoolLevel schoolLevel;
 }
