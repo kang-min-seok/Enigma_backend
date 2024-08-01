@@ -17,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -78,6 +80,46 @@ public class UserServiceTest {
         });
 
         assertEquals(ErrorCode.USER_NOT_FOUND.getMessage(), exception.getMessage());
+    }
+
+
+    @Test
+    public void testGetFriends_Success() {
+
+        User user = new User();
+        user.setId(1L);
+        user.setUserName("testUser");
+        user.setEmail("oldemail@example.com");
+        user.setSchoolLevel(SchoolLevel.HIGH);
+        user.setGrade(3);
+
+        User friend1 = new User();
+        friend1.setId(2L);
+        friend1.setUserName("friendUser1");
+        friend1.setEmail("friend1@example.com");
+        friend1.setSchoolLevel(SchoolLevel.HIGH);
+        friend1.setGrade(1);
+
+        User friend2 = new User();
+        friend2.setId(3L);
+        friend2.setUserName("friendUser2");
+        friend2.setEmail("friend2@example.com");
+        friend2.setSchoolLevel(SchoolLevel.HIGH);
+        friend2.setGrade(2);
+
+        Set<User> friends = new HashSet<>();
+        friends.add(friend1);
+        friends.add(friend2);
+        user.setFriends(friends);
+
+        when(userRepository.findById(anyLong())).thenReturn(Optional.of(user));
+
+        List<UserResponse> responses = userService.getFriends(1L);
+
+        assertNotNull(responses);
+        assertEquals(2, responses.size());
+        assertEquals("friendUser1", responses.get(0).getUserName());
+        assertEquals("friendUser2", responses.get(1).getUserName());
     }
 
     @Test

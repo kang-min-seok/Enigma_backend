@@ -121,6 +121,23 @@ public class UserService {
     }
 
     /**
+     * 사용자의 친구 목록을 조회합니다.
+     *
+     * @param userId 사용자 ID
+     * @return 친구 목록 응답 DTO 리스트
+     */
+    @Transactional(readOnly = true)
+    public List<UserResponse> getFriends(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException("사용자를 찾을 수 없습니다.", ErrorCode.USER_NOT_FOUND));
+
+        return user.getFriends().stream()
+                .map(this::convertToUserResponse)
+                .collect(Collectors.toList());
+    }
+
+
+    /**
      * 사용자 엔티티를 UserResponse DTO로 변환합니다.
      *
      * @param user 사용자 엔티티
